@@ -12,12 +12,11 @@ namespace MyDbApp
         {
             // define sub relationships through rthe hierarchy
             // Tables higher define down
-            builder.HasMany(o => o.SubsONe)
+            builder.HasMany(o => o.SubsOne)
                     .WithOne(p => p.Host).OnDelete(DeleteBehavior.Cascade);
 
             builder.HasMany(o => o.SubsTwo)
                     .WithOne(p => p.Host).OnDelete(DeleteBehavior.Cascade);
-
         }
     }
 }

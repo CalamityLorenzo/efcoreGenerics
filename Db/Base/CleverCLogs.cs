@@ -5,7 +5,7 @@ namespace MyDbApp
     /// Smattering of fields that are shared
     // between the grand objects that otherwise having nothing in commomns
     //
-    public interface IDbHostFields
+    public interface IDbParentFields
     {
         string SameSame { get; set; }
         DateTime NoTime { get; set; }

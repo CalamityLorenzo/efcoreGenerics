@@ -3,18 +3,18 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace MyDbApp
 {
-    public class H1Builder : IEntityTypeConfiguration<HostOne>
+    public class P1Builder: IEntityTypeConfiguration<ParentOne>
     {
-        public void Configure(EntityTypeBuilder<HostOne> builder)
+        public void Configure(EntityTypeBuilder<ParentOne> builder)
         {
             builder.HasMany(p => p.CoreCollection)
                     .WithOne(p => p.Host);
         }
     }
 
-    public class H2Builder : IEntityTypeConfiguration<HostTwo>
+    public class P2Builder : IEntityTypeConfiguration<ParentTwo>
     {
-        public void Configure(EntityTypeBuilder<HostTwo> builder)
+        public void Configure(EntityTypeBuilder<ParentTwo> builder)
         {
             builder.HasMany(p => p.CoreCollection)
                     .WithOne(p => p.Host);

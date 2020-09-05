@@ -9,9 +9,9 @@ using MyDbApp;
 
 namespace efcoreGenerics.Migrations
 {
-    [DbContext(typeof(SimpleDb))]
-    [Migration("20200905094316_Billicent")]
-    partial class Billicent
+    [DbContext(typeof(DbAppContext))]
+    [Migration("20200905164626_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,30 +21,7 @@ namespace efcoreGenerics.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("MyDbApp.HOOneSubTwo", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("HostId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsAOkay")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("HostId");
-
-                    b.ToTable("CoreOneS2");
-                });
-
-            modelBuilder.Entity("MyDbApp.HOneCore", b =>
+            modelBuilder.Entity("MyDbApp.P1Core", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -54,14 +31,31 @@ namespace efcoreGenerics.Migrations
                     b.Property<int>("HostId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("HostId");
 
                     b.ToTable("CoreOne");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            HostId = 2,
+                            Name = "P1-Core 1"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            HostId = 2,
+                            Name = "P1-Core 2"
+                        });
                 });
 
-            modelBuilder.Entity("MyDbApp.HOneSubOne", b =>
+            modelBuilder.Entity("MyDbApp.P1Sub1", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -81,7 +75,7 @@ namespace efcoreGenerics.Migrations
                     b.ToTable("CoreOneS1");
                 });
 
-            modelBuilder.Entity("MyDbApp.HTwoCore", b =>
+            modelBuilder.Entity("MyDbApp.P1Sub2", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -91,14 +85,83 @@ namespace efcoreGenerics.Migrations
                     b.Property<int>("HostId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("IsAOkay")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("HostId");
+
+                    b.ToTable("CoreOneS2");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            HostId = 1,
+                            IsAOkay = false,
+                            Name = "Matilda"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            HostId = 1,
+                            IsAOkay = true,
+                            Name = "Claming"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            HostId = 2,
+                            IsAOkay = false,
+                            Name = "Cujo"
+                        });
+                });
+
+            modelBuilder.Entity("MyDbApp.P2Core", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("HostId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("HostId");
 
                     b.ToTable("CoreTwo");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            HostId = 1,
+                            Name = "P2-Core 1"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            HostId = 2,
+                            Name = "P2-Core 2"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            HostId = 1,
+                            Name = "P3-Core 2"
+                        });
                 });
 
-            modelBuilder.Entity("MyDbApp.HTwoSubOne", b =>
+            modelBuilder.Entity("MyDbApp.P2Sub2", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -118,14 +181,14 @@ namespace efcoreGenerics.Migrations
                     b.ToTable("CoreTwoS1");
                 });
 
-            modelBuilder.Entity("MyDbApp.HTwoSubTwo", b =>
+            modelBuilder.Entity("MyDbApp.P2SubOne", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("HostId")
+                    b.Property<int>("HostId")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsAOkay")
@@ -141,7 +204,7 @@ namespace efcoreGenerics.Migrations
                     b.ToTable("CoreTwoS2");
                 });
 
-            modelBuilder.Entity("MyDbApp.HostOne", b =>
+            modelBuilder.Entity("MyDbApp.ParentOne", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -162,20 +225,28 @@ namespace efcoreGenerics.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("HostOnes");
+                    b.ToTable("ParentOnes");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            NoTime = new DateTime(2020, 9, 2, 10, 43, 15, 326, DateTimeKind.Local).AddTicks(6152),
+                            NoTime = new DateTime(2020, 9, 2, 17, 46, 25, 775, DateTimeKind.Local).AddTicks(8635),
                             SameSame = "Not the usual",
-                            Selfish = new DateTime(2020, 9, 5, 10, 43, 15, 321, DateTimeKind.Local).AddTicks(913),
+                            Selfish = new DateTime(2020, 9, 5, 17, 46, 25, 772, DateTimeKind.Local).AddTicks(8271),
                             Year = 1923
+                        },
+                        new
+                        {
+                            Id = 2,
+                            NoTime = new DateTime(2020, 9, 5, 17, 46, 25, 775, DateTimeKind.Local).AddTicks(9480),
+                            SameSame = "PLAAAAANK",
+                            Selfish = new DateTime(2020, 9, 10, 17, 46, 25, 775, DateTimeKind.Local).AddTicks(9447),
+                            Year = 1878
                         });
                 });
 
-            modelBuilder.Entity("MyDbApp.HostTwo", b =>
+            modelBuilder.Entity("MyDbApp.ParentTwo", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -193,67 +264,77 @@ namespace efcoreGenerics.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("HostTwos");
+                    b.ToTable("ParentTwos");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            NoTime = new DateTime(2020, 9, 2, 10, 43, 15, 329, DateTimeKind.Local).AddTicks(4928),
+                            NoTime = new DateTime(2020, 9, 2, 17, 46, 25, 777, DateTimeKind.Local).AddTicks(6462),
                             PuffDaddy = "Is a parappa",
                             SameSame = "Another version"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            NoTime = new DateTime(2020, 9, 2, 17, 46, 25, 777, DateTimeKind.Local).AddTicks(7153),
+                            PuffDaddy = "Pointiny",
+                            SameSame = "Number two"
                         });
                 });
 
-            modelBuilder.Entity("MyDbApp.HOOneSubTwo", b =>
+            modelBuilder.Entity("MyDbApp.P1Core", b =>
                 {
-                    b.HasOne("MyDbApp.HOneCore", "Host")
-                        .WithMany("SubsTwo")
-                        .HasForeignKey("HostId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("MyDbApp.HOneCore", b =>
-                {
-                    b.HasOne("MyDbApp.HostOne", "Host")
+                    b.HasOne("MyDbApp.ParentOne", "Host")
                         .WithMany("CoreCollection")
                         .HasForeignKey("HostId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MyDbApp.HOneSubOne", b =>
+            modelBuilder.Entity("MyDbApp.P1Sub1", b =>
                 {
-                    b.HasOne("MyDbApp.HOneCore", "Host")
-                        .WithMany("SubsONe")
+                    b.HasOne("MyDbApp.P1Core", "Host")
+                        .WithMany("SubsOne")
                         .HasForeignKey("HostId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MyDbApp.HTwoCore", b =>
+            modelBuilder.Entity("MyDbApp.P1Sub2", b =>
                 {
-                    b.HasOne("MyDbApp.HostTwo", "Host")
+                    b.HasOne("MyDbApp.P1Core", "Host")
+                        .WithMany("SubsTwo")
+                        .HasForeignKey("HostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("MyDbApp.P2Core", b =>
+                {
+                    b.HasOne("MyDbApp.ParentTwo", "Host")
                         .WithMany("CoreCollection")
                         .HasForeignKey("HostId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MyDbApp.HTwoSubOne", b =>
+            modelBuilder.Entity("MyDbApp.P2Sub2", b =>
                 {
-                    b.HasOne("MyDbApp.HTwoCore", "Host")
-                        .WithMany("SubsONe")
+                    b.HasOne("MyDbApp.P2Core", "Host")
+                        .WithMany("SubsOne")
                         .HasForeignKey("HostId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MyDbApp.HTwoSubTwo", b =>
+            modelBuilder.Entity("MyDbApp.P2SubOne", b =>
                 {
-                    b.HasOne("MyDbApp.HTwoCore", "Host")
+                    b.HasOne("MyDbApp.P2Core", "Host")
                         .WithMany("SubsTwo")
-                        .HasForeignKey("HostId");
+                        .HasForeignKey("HostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
