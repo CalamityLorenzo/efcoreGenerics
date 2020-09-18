@@ -20,4 +20,13 @@ namespace MyDbApp
                     .WithOne(p => p.Host);
         }
     }
+
+    public class P3Builder : IEntityTypeConfiguration<ParentThree>
+    {
+        public void Configure(EntityTypeBuilder<ParentThree> builder)
+        {
+            builder.HasOne(p => p.P1Core)
+                    .WithOne(p => p.Host);
+        }
+    }
 }
